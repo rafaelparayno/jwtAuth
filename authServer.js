@@ -2,13 +2,13 @@ require('dotenv').config()
 
 const express = require('express');
 const app = express();
-
+const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
 //not viable instead using this use a db...
 let refreshTokens = [];
 
-
+app.use(cors());
 app.use(express.json());
 
 app.post('/token', (req, res) => {
@@ -39,7 +39,7 @@ app.post('/login', (req, res) => {
 })
 
 function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s' });
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
 }
 
 app.listen(4000);
